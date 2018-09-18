@@ -2,9 +2,132 @@
 title: "p8105_hw1_hx2264"
 author: "Hongyao Xie"
 date: "September 13, 2018"
-output: html_document
+output: github_document
 ---
-```{r}
-test 1 
+
+#Problem 1 
+
+```{r chunk1}
+
+#load the library tidyverser
+library(tidyverse)
+
+#Set seed to get a reproducible random result
+set.seed(1)
+
+#create the data frame
+df_4_var = tibble(
+  sample = runif(10, min = 0, max = 5),
+  sample_over_2 = sample > 2,
+  char = as.character(rep(c("a","b","c","d","f"),2)),
+  fac = as.factor(rep(c("a","b","c","d","f"),2))
+) 
+
+#run the data frame to see if it works
+head(df_4_var)
+
+#take the mean of each variable
+mean(df_4_var$sample)
+mean(df_4_var$sample_over_2)
+mean(df_4_var$char)
+mean(df_4_var$fac)
 ```
+
+The column 1 and 2 (ramdom sample and logical vector) worked, whereas the column 3 and 4 (character vector and factor vector) didn't. Mean of the random sample was its arithmetic mean, and mean of the logical vector was to regard TRUE as 1 and FALSE as 0. Both columns could be interpreted as numeric values, and thus we could calculate their mean. 
+
+The column 3 and 4 didn't work because character and factor could not be interpreted as numeric values. Any words, like "hello" or "aaa" or "123", could be used in character vector and factor vector. Since the elements in these vectors were not always numbers, these two variable types don't have mean.
+
+
+
+```{r chunk2, results = hide}
+#applies as.numeric function
+as.numeric(df_4_var$sample_over_2)
+as.numeric(df_4_var$char)
+as.numeric(df_4_var$fac)
+```
+
+
+```{r chunk3}
+#convert character variable from character to factor to numeric
+char_to_fac <- as.factor(df_4_var$char)
+char_to_fac_to_num <- as.numeric(char_to_fac)
+char_to_fac_to_num
+
+#convert factor variable from factor to character to numeric
+fac_to_char <- as.character(df_4_var$fac)
+fac_to_char_to_num <- as.numeric(fac_to_char)
+fac_to_char_to_num
+```
+
+
+
+#Problem 2
+
+```{r}
+#create the data frame:
+#dimision of the data fram is 1000 rows and 5 columns
+set.seed(2)
+
+df_5_var = tibble(
+  x = rnorm(1000),
+  y = rnorm(1000),
+  sum_over_0 = x + y > 0,
+  sum_over_0_to_num = as.numeric(sum_over_0),
+  sum_over_0_to_fac = as.factor(sum_over_0)
+)
+
+dim(df_5_var)
+head(df_5_var)
+
+#mean and median of x
+mean(df_5_var$x)
+median(df_5_var$x)
+
+#the proportion of cases for which the logical vector is TRUE
+length(which(df_5_var$sum_over_0))/length(df_5_var$sum_over_0)
+```
+
+
+```{r}
+library(gridExtra)
+
+#scatterplot of y vs x, color using the logical variable
+scatter_by_logical <- ggplot(df_5_var, aes(x = x, y = y, color = sum_over_0)) + geom_point()
+
+ggsave("scatter_by_logical.png")
+
+#scatterplot of y vs x, color using the numeric variable
+scatter_by_num <- ggplot(df_5_var, aes(x = x, y = y, color = sum_over_0_to_num)) + geom_point()
+
+ggsave("scatter_by_num.png")
+
+#scatterplot of y vs x, color using the factor variable
+scatter_by_fac <- ggplot(df_5_var, aes(x = x, y = y, color = sum_over_0_to_fac)) + geom_point()
+
+ggsave("scatter_by_fac.png")
+
+#combine multiple plots
+grid.arrange(scatter_by_logical, scatter_by_num, scatter_by_fac, ncol = 2)
+
+ggsave
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
