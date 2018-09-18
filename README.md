@@ -1,3 +1,3 @@
 # p8105_hw1_hx2264
 
-qucik example repo for in-class git demo
+This is the first homework of P8105 Data Science 1.
