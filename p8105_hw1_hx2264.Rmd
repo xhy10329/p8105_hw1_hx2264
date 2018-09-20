@@ -35,7 +35,7 @@ mean(df_4_var$fac)
 
 The column 1 and 2 (ramdom sample and logical vector) worked, whereas the column 3 and 4 (character vector and factor vector) didn't. Mean of the random sample was its arithmetic mean, and mean of the logical vector was to regard TRUE as 1 and FALSE as 0. Both columns could be interpreted as numeric values, and thus we could calculate their mean. 
 
-The column 3 and 4 didn't work because character and factor could not be interpreted as numeric values. Any words, like "hello" or "aaa" or "123", could be used in character vector and factor vector. Since the elements in these vectors were not always numbers, these two variable types don't have mean.
+The column 3 and 4 didn't work because character and factor could not be interpreted as numeric values. Any words, like "hello" or "aaa" or "123", could be used in character vector and factor vector. Since the elements in these vectors were not always numbers, these two variable types did't have mean.
 
 
 
@@ -45,6 +45,8 @@ as.numeric(df_4_var$sample_over_2)
 as.numeric(df_4_var$char)
 as.numeric(df_4_var$fac)
 ```
+
+The as.numeric function applied to logical and factor variables but the character variable. For the logical variable, as.numeric function returned 0 for FALSE and returned 1 for TRUE. For the factor variable, as.numeric returned an integer representation for each level of the factor variable. However, for the character variable, as.numeric wouldn't return any numeric values.
 
 
 ```{r chunk3}
@@ -92,17 +94,20 @@ length(which(df_5_var$sum_over_0))/length(df_5_var$sum_over_0)
 library(gridExtra)
 
 #scatterplot of y vs x, color using the logical variable
-scatter_by_logical <- ggplot(df_5_var, aes(x = x, y = y, color = sum_over_0)) + geom_point()
+scatter_by_logical <- ggplot(df_5_var, 
+                             aes(x = x, y = y, color = sum_over_0)) + geom_point()
 
 ggsave("scatter_by_logical.png")
 
 #scatterplot of y vs x, color using the numeric variable
-scatter_by_num <- ggplot(df_5_var, aes(x = x, y = y, color = sum_over_0_to_num)) + geom_point()
+scatter_by_num <- ggplot(df_5_var, 
+                         aes(x = x, y = y, color = sum_over_0_to_num)) + geom_point()
 
 ggsave("scatter_by_num.png")
 
 #scatterplot of y vs x, color using the factor variable
-scatter_by_fac <- ggplot(df_5_var, aes(x = x, y = y, color = sum_over_0_to_fac)) + geom_point()
+scatter_by_fac <- ggplot(df_5_var, 
+                         aes(x = x, y = y, color = sum_over_0_to_fac)) + geom_point()
 
 ggsave("scatter_by_fac.png")
 
