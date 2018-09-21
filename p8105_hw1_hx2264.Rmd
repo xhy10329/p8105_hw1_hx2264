@@ -8,7 +8,6 @@ output: github_document
 #Problem 1 
 
 ```{r chunk1}
-
 #load the library tidyverser
 library(tidyverse)
 
@@ -33,13 +32,13 @@ mean(df_4_var$char)
 mean(df_4_var$fac)
 ```
 
-The column 1 and 2 (ramdom sample and logical vector) worked, whereas the column 3 and 4 (character vector and factor vector) didn't. Mean of the random sample was its arithmetic mean, and mean of the logical vector was to regard TRUE as 1 and FALSE as 0. Both columns could be interpreted as numeric values, and thus we could calculate their mean. 
+The column 1 and 2 (ramdom sample and logical vector) worked, whereas the column 3 and 4 (character vector and factor vector) didn't. Mean of the random sample was its arithmetic mean, and mean of the logical vector was to interpret TRUE as 1 and FALSE as 0. Both column 1 and 2 could be interpreted as numeric values, and thus we could calculate their mean. 
 
-The column 3 and 4 didn't work because character and factor could not be interpreted as numeric values. Any words, like "hello" or "aaa" or "123", could be used in character vector and factor vector. Since the elements in these vectors were not always numbers, these two variable types did't have mean.
+The column 3 and 4 didn't work because character and factor could not be interpreted as numeric values here. Any words, like "hello" or "aaa" or "123", could be used in character vector and factor vector. Since the elements in these vectors were not always numbers, these two variable types did't have mean.
 
 
 
-```{r chunk2, results = hide}
+```{r chunk2, results = "hide"}
 #applies as.numeric function
 as.numeric(df_4_var$sample_over_2)
 as.numeric(df_4_var$char)
@@ -63,6 +62,7 @@ fac_to_char_to_num
 
 
 
+
 #Problem 2
 
 ```{r}
@@ -78,16 +78,12 @@ df_5_var = tibble(
   sum_over_0_to_fac = as.factor(sum_over_0)
 )
 
-dim(df_5_var)
 head(df_5_var)
-
-#mean and median of x
-mean(df_5_var$x)
-median(df_5_var$x)
-
-#the proportion of cases for which the logical vector is TRUE
-length(which(df_5_var$sum_over_0))/length(df_5_var$sum_over_0)
+tail(df_5_var) #check head and tail of the data frame in cause there is anything wrong
 ```
+
+There are "r dim(df_5_var)[1] " rows and "r dim(df_5_var)[2] " columns. The mean of x is "r mean(df_5_var)" and the median of x is "r mediam(df_5_var)". The proportion of cases for which the logical vector is TRUE is "r length(which(df_5_var$sum_over_0)) / length(df_5_var$sum_over_0) * 100%".
+
 
 
 ```{r}
@@ -113,8 +109,6 @@ ggsave("scatter_by_fac.png")
 
 #combine multiple plots
 grid.arrange(scatter_by_logical, scatter_by_num, scatter_by_fac, ncol = 2)
-
-ggsave
 ```
 
 
