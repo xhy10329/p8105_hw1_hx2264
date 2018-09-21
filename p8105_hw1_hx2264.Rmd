@@ -89,21 +89,24 @@ There are "r dim(df_5_var)[1] " rows and "r dim(df_5_var)[2] " columns. The mean
 ```{r}
 library(gridExtra)
 
-#scatterplot of y vs x, color using the logical variable
+# scatterplot of y vs x, color using the logical variable
 scatter_by_logical <- ggplot(df_5_var, 
                              aes(x = x, y = y, color = sum_over_0)) + geom_point()
+# color scale: when x + y > 0, points were colored green; when x + y <= 0, points were colored red
 
 ggsave("scatter_by_logical.png")
 
 #scatterplot of y vs x, color using the numeric variable
 scatter_by_num <- ggplot(df_5_var, 
                          aes(x = x, y = y, color = sum_over_0_to_num)) + geom_point()
+# color scale: when x + y > 0, points were colored blue; when x + y <= 0, points were colored black
 
 ggsave("scatter_by_num.png")
 
 #scatterplot of y vs x, color using the factor variable
 scatter_by_fac <- ggplot(df_5_var, 
                          aes(x = x, y = y, color = sum_over_0_to_fac)) + geom_point()
+# color scale: when x + y > 0, points were colored green; when x + y <= 0, points were colored red
 
 ggsave("scatter_by_fac.png")
 
